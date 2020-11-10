@@ -251,8 +251,8 @@ class _SparklinePainter extends CustomPainter {
   final double pointSize;
   final Color pointColor;
 
-  final double _max;
-  final double _min;
+  double _max;
+  double _min;
 
   final bool enableGridLines;
   final Color gridLineColor;
@@ -296,6 +296,15 @@ class _SparklinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     double width = size.width - lineWidth;
     final double height = size.height - lineWidth;
+    if(_min == _max){
+      if(_min == 0){
+        _min = -1;
+        _max = 1;
+      } else {
+        _min = 0.0;
+        _max = _max*2;
+      }
+    }
     final double heightNormalizer = height / (_max - _min);
 
     final Path path = new Path();
